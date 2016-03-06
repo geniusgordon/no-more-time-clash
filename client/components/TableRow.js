@@ -4,6 +4,7 @@ import _ from 'lodash';
 const style = {
   cell: {
     cursor: 'pointer',
+    padding: 0,
   },
   borrowed: {
     background: '#ddd',
@@ -13,19 +14,18 @@ const style = {
 function isBorrowed(schedules, slot) {
   for (let i = 0; i < schedules.length; i++) {
     if (schedules[i].slot === slot) {
-      return true;
+      return schedules[i];
     }
   }
   return false;
 }
 
-const TableRow = ({ machine, schedules, borrow, cancel }) => (
+const TableRow = ({ machine, schedules, pictures, borrow, cancel, getPicture }) => (
   <tr>
     <th>{machine}</th>
     {_.range(24).map((i) => {
       const borrowed = isBorrowed(schedules, i);
       function _onClick() {
-        console.log(borrowed);
         if (borrowed) {
           cancel({
             slot: i,
@@ -38,12 +38,15 @@ const TableRow = ({ machine, schedules, borrow, cancel }) => (
           });
         }
       }
+      if (borrowed && !pictures[borrowed.fbID]) {
+        getPicture(borrowed.fbID);
+      }
       return (
         <td
           key={i}
-          style={Object.assign({}, style.cell, borrowed ? style.borrowed : {})}
+          style={style.cell}
           onClick={_onClick}
-        ></td>
+        >{(borrowed) ? <img src={pictures[borrowed.fbID]} /> : ''}</td>
       );
     })}
   </tr>
@@ -52,8 +55,10 @@ const TableRow = ({ machine, schedules, borrow, cancel }) => (
 TableRow.propTypes = {
   machine: React.PropTypes.string,
   schedules: React.PropTypes.array,
+  pictures: React.PropTypes.object,
   borrow: React.PropTypes.func,
   cancel: React.PropTypes.func,
+  getPicture: React.PropTypes.func,
 };
 
 export default TableRow;

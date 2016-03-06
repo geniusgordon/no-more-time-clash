@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import * as actions from '../actions/schedule';
+import { fetchProfilePicture } from '../actions/fb';
 import TableRow from '../components/TableRow';
 import Fb from './Fb';
 
@@ -64,6 +65,8 @@ class ScheduleTable extends React.Component {
                 schedules={schedules[machine]}
                 borrow={_borrow}
                 cancel={_cancel}
+                pictures={this.props.pictures}
+                getPicture={this.props.getPicture}
               />
             ))}
           </tbody>
@@ -77,18 +80,22 @@ ScheduleTable.propTypes = {
   curr: React.PropTypes.string,
   fbID: React.PropTypes.string,
   schedules: React.PropTypes.object,
+  pictures: React.PropTypes.object,
   socket: React.PropTypes.object,
   fetchSchedule: React.PropTypes.func,
   borrow: React.PropTypes.func,
   cancel: React.PropTypes.func,
   otherBorrow: React.PropTypes.func,
   otherCancel: React.PropTypes.func,
+  getPicture: React.PropTypes.func,
 };
 
 const mapStateToProps = (state) => (
   Object.assign({},
-    state.schedule,
-    { fbID: state.fb.fbID }
+    state.schedule, {
+      fbID: state.fb.fbID,
+      pictures: state.fb.pictures,
+    }
   )
 );
 
@@ -117,6 +124,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   otherCancel(data) {
     dispatch(actions.otherCancel(data));
+  },
+  getPicture(fbID) {
+    dispatch(fetchProfilePicture(fbID));
   },
 });
 

@@ -2,15 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/fb';
 
-let Fb = ({ login, picture, fbLogin, fbLogout }) => {
+let Fb = ({ login, fbID, pictures, fbLogin, fbLogout }) => {
   if (login) {
+    const url = pictures[fbID];
     return (
       <div>
         <button
           className="btn btn-primary"
           onClick={fbLogout}
         >Logout</button>
-        <img src={picture} />
+        <img src={url} />
       </div>
     );
   }
@@ -24,7 +25,8 @@ let Fb = ({ login, picture, fbLogin, fbLogout }) => {
 
 Fb.propTypes = {
   login: React.PropTypes.bool,
-  picture: React.PropTypes.string,
+  fbID: React.PropTypes.string,
+  pictures: React.PropTypes.object,
   fbLogin: React.PropTypes.func,
   fbLogout: React.PropTypes.func,
 };

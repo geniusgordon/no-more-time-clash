@@ -2,13 +2,29 @@ export const FB_LOGIN = 'FB_LOGIN';
 export const FB_LOGIN_SUCCESS = 'FB_LOGIN_SUCCESS';
 export const FB_LOGIN_FAIL = 'FB_LOGIN_FAIL';
 export const FB_LOGOUT = 'FB_LOGOUT';
+export const REQUEST_PROFILE_PICTURE = 'REQUEST_PROFILE_PICTURE';
+export const REQUEST_PROFILE_PICTURE_DONE = 'REQUEST_PROFILE_PICTURE_DONE';
 
-function getProfilePicture(userId, done) {
-  window.FB.api(`${userId}/picture`, (response) => {
-    if (response && !response.error) {
-      done(response.data.url);
-    }
-  });
+export function requestProfilePictureDone(fbID, url) {
+  return {
+    type: REQUEST_PROFILE_PICTURE_DONE,
+    fbID,
+    url,
+  };
+}
+
+export function fetchProfilePicture(fbID) {
+  return (dispatch) => {
+    dispatch({
+      type: REQUEST_PROFILE_PICTURE,
+      fbID,
+    });
+    window.FB.api(`${fbID}/picture`, (response) => {
+      if (response && !response.error) {
+        dispatch(requestProfilePictureDone(fbID, response.data.url));
+      }
+    });
+  };
 }
 
 export function fbLogin() {
@@ -18,13 +34,12 @@ export function fbLogin() {
     });
     window.FB.login((response) => {
       if (response.authResponse) {
-        getProfilePicture(response.authResponse.userID, (url) => {
-          dispatch({
-            type: FB_LOGIN_SUCCESS,
-            auth: response.authResponse,
-            picture: url,
-          });
+        const fbID = response.authResponse.userID;
+        dispatch({
+          type: FB_LOGIN_SUCCESS,
+          fbID: response.authResponse.userID,
         });
+        dispatch(fetchProfilePicture(fbID));
       } else {
         dispatch({
           type: FB_LOGIN_FAIL,
