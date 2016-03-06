@@ -2,13 +2,13 @@ module.exports = function(io, store) {
     var cookieParser = require('cookie-parser');
     var passportSocketIo = require('passport.socketio');
 
-    io.use(passportSocketIo.authorize({
-        cookieParser: cookieParser,
-        secret: '{name}-secret',
-        store: store,
-        success: onAuthorizeSuccess,
-        fail: onAuthorizeFail,
-    }));
+    // io.use(passportSocketIo.authorize({
+    //     cookieParser: cookieParser,
+    //     secret: '{name}-secret',
+    //     store: store,
+    //     success: onAuthorizeSuccess,
+    //     fail: onAuthorizeFail,
+    // }));
 
     function onAuthorizeSuccess(data, accept) {
         accept();

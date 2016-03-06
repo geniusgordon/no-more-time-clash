@@ -1,12 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../../models/user');
+var scheduleApi = require('./schedule');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-    User.find({}, function(err, users) {
-        res.status(200).json(users);
-    });
-});
+router.use('/schedule', scheduleApi);
 
 module.exports = router;
+
