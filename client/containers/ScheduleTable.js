@@ -36,6 +36,12 @@ class ScheduleTable extends React.Component {
       );
     };
     const schedules = this.props.schedules;
+    const previous = () => {
+      this.props.fetchSchedule(this.props.prev);
+    };
+    const next = () => {
+      this.props.fetchSchedule(this.props.next);
+    };
     return (
       <div>
         <Fb />
@@ -43,10 +49,14 @@ class ScheduleTable extends React.Component {
         <nav>
           <ul className="pager">
             <li className="previous">
-              <a href="#"><span aria-hidden="true">&larr;</span> Prev</a>
+              <a onClick={previous}>
+                <span aria-hidden="true">&larr;</span> Prev
+              </a>
             </li>
             <li className="next">
-              <a href="#">Next <span aria-hidden="true">&rarr;</span></a>
+              <a onClick={next}>
+                Next <span aria-hidden="true">&rarr;</span>
+              </a>
             </li>
           </ul>
         </nav>
@@ -77,7 +87,9 @@ class ScheduleTable extends React.Component {
 }
 
 ScheduleTable.propTypes = {
+  prev: React.PropTypes.string,
   curr: React.PropTypes.string,
+  next: React.PropTypes.string,
   fbID: React.PropTypes.string,
   schedules: React.PropTypes.object,
   pictures: React.PropTypes.object,
