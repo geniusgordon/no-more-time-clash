@@ -4,6 +4,7 @@ module.exports = {
   cache: true,
   entry: {
     'index': './client/index.js',
+    'schedule': './client/schedule.js',
   },
   output: {
     path: path.join(__dirname, 'server/public/javascripts/build'),

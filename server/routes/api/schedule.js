@@ -32,6 +32,7 @@ router.get('/:year/:month/:day', (req, res) => {
 
   var result = {
     prev: prev.format('YYYY/MM/DD'),
+    curr: date.format('YYYY/MM/DD'),
     next: next.format('YYYY/MM/DD'),
     schedules: {},
   };
