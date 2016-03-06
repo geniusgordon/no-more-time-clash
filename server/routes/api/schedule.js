@@ -9,5 +9,9 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/:year/:month/:day', (req, res) => {
+  res.json(req.params.year);
+});
+
 module.exports = router;
 
