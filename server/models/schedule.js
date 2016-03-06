@@ -3,9 +3,7 @@ var Schema = mongoose.Schema;
 
 var scheduleSchema = new Schema({
   nickname: String,
-  year: Number,
-  month: Number,
-  day: Number,
+  time: Date,
   slot: Number,
   machine: {
     type: Schema.Types.ObjectId,
