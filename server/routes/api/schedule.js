@@ -41,7 +41,7 @@ router.get('/:year/:month/:day', (req, res) => {
     machines.forEach((machine) => {
       scheduleModel.aggregate([{
         $match: {
-          time: date.toDate(),
+          date: date.format('YYYY/MM/DD'),
           machine: machine._id,
         },
       }], (err, schedules) => {

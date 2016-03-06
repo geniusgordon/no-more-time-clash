@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var scheduleSchema = new Schema({
-  nickname: String,
-  time: Date,
+  fbID: String,
+  date: String,
   slot: Number,
   machine: {
     type: Schema.Types.ObjectId,

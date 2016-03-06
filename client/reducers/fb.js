@@ -10,7 +10,7 @@ const fbReducer = (state = initialState, action) => {
   if (action.type === actions.FB_LOGIN_SUCCESS) {
     return {
       login: true,
-      auth: action.auth,
+      fbID: action.auth.userID,
       picture: action.picture,
     };
   } else if (action.type === actions.FB_LOGOUT) {

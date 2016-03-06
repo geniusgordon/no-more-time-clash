@@ -11,6 +11,10 @@ const initialState = {
 const scheduleReducer = (state = initialState, action) => {
   if (action.type === actions.REQUEST_SCHEDULE_DONE) {
     return action.data;
+  } else if (action.type === actions.OTHER_BORROW) {
+    const schedules = state.schedules;
+    schedules[action.machine].push(action.schedule);
+    return Object.assign({}, state, { schedules });
   }
   return state;
 };

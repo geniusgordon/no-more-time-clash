@@ -1,14 +1,18 @@
 module.exports = function(store) {
-    var io = {};
-    var _io = require('socket.io')();
-    io.io = require('./config/socket')(_io, store);
-    io.listen = function(server) {
-        io.io.listen(server);
-    };
-    io.on = function(e, fn) {
-        io.io.on(e, fn);
-    };
+  var _io = require('socket.io')();
+  var io = {
+    io: require('./config/socket')(_io, store),
+    listen(server) {
+      this.io.listen(server);
+    },
+    on(e, fn) {
+      this.io.on(e, fn);
+    },
+    emit(tag, data) {
+      this.io.emit(tag, data);
+    },
+  };
 
-    return io;
+  return io;
 };
 
