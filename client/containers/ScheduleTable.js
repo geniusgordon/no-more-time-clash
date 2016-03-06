@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import * as actions from '../actions/schedule';
 import TableRow from '../components/TableRow';
+import Fb from './Fb';
 
 class ScheduleTable extends React.Component {
   componentDidMount() {
@@ -10,19 +11,22 @@ class ScheduleTable extends React.Component {
   }
   render() {
     return (
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th></th>
-            {_.range(24).map((i) => <th key={i}>{i}</th>)}
-          </tr>
-        </thead>
-        <tbody>
-          {_.keys(this.props.schedules).map((machine) => (
-            <TableRow key={machine} name={machine} />
-          ))}
-        </tbody>
-      </table>
+      <div>
+        <Fb />
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              {_.range(24).map((i) => <th key={i}>{i}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {_.keys(this.props.schedules).map((machine) => (
+              <TableRow key={machine} name={machine} />
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
@@ -33,7 +37,7 @@ ScheduleTable.propTypes = {
   fetchSchedule: React.PropTypes.func,
 };
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = (state) => state.schedule;
 
 const mapDispatchToProps = (dispatch) => ({
   fetchSchedule(date) {

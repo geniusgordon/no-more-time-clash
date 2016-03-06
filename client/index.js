@@ -1,8 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import Fb from './containers/Fb';
+
+const Index = () => (
+  <div>
+    <div>Song la</div>
+    <Fb />
+  </div>
+);
+
 render(
-  <div>Song la</div>,
+  <Index />,
   document.getElementById('root')
 );
 

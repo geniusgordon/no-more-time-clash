@@ -6,8 +6,11 @@ var router = express.Router();
 
 router.use('/api', api);
 
-/* GET home page. */
 router.get('/', function(req, res) {
+  res.render('index');
+});
+
+router.get('/schedule', function(req, res) {
   res.render('schedule');
 });
 
