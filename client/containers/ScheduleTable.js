@@ -104,7 +104,7 @@ ScheduleTable.propTypes = {
 
 const mapStateToProps = (state) => (
   Object.assign({},
-    state.schedule, {
+    state.schedule.toJS(), {
       fbID: state.fb.fbID,
       pictures: state.fb.pictures,
     }

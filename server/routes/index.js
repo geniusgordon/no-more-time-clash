@@ -7,7 +7,7 @@ var router = express.Router();
 router.use('/api', api);
 
 router.get('/', function(req, res) {
-  res.render('index');
+  res.render('schedule');
 });
 
 router.get('/schedule', function(req, res) {
